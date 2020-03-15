@@ -1,13 +1,10 @@
-import {fk, Model} from 'redux-orm';
+import Model, {attr} from 'redux-orm';
 
-export default class User extends Model {
-  static modelName = 'User';
+export default class User extends Model {}
 
-  static fields = {
-    authorId: fk({
-      to: 'Author',
-      as: 'author',
-      relatedName: 'books',
-    }),
-  };
-}
+User.modelName = 'User';
+
+User.fields = {
+  id: attr(),
+  name: attr(),
+};

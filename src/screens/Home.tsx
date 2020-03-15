@@ -1,23 +1,18 @@
 import React, {useState} from 'react';
-import {Button, View, Text, TextInput} from 'react-native';
-import {useSelector, useStore} from 'react-redux';
-import {User} from '../types/user.type';
+import {Button, TextInput, View} from 'react-native';
+import {v4} from 'uuid';
+import userSlice from '../store/user';
+import {useDispatch} from 'react-redux';
 
 const Home = (props: any) => {
-  const store: any = useStore();
-  const {dispatch, select} = store;
-
-  const rootState = useSelector(state => state);
-  const authUser = select.auth.authUser(rootState);
-  const usersById = select.user.usersById(rootState);
-
-  const [task, setTask] = useState('');
+  const dispatch = useDispatch();
+  const [name, setName] = useState('');
 
   return (
     <View>
       <TextInput
-        value={task}
-        onChangeText={(data: any) => setTask(data)}
+        value={name}
+        onChangeText={(data: any) => setName(data)}
         placeholder="add name"
         style={{borderWidth: 1}}
       />
@@ -25,20 +20,10 @@ const Home = (props: any) => {
       <Button
         title="change"
         onPress={() => {
-          dispatch.auth.setAuth(task);
-          setTask('');
+          dispatch(userSlice.actions.add({id: v4(), name}));
+          setName('');
         }}
       />
-
-      <View>
-        {usersById.map((user: User, key: number) => {
-          return (
-            <View key={key}>
-              <Text>{user?.name}</Text>
-            </View>
-          );
-        })}
-      </View>
     </View>
   );
 };

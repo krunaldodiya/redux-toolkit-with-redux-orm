@@ -1,5 +1,7 @@
 # redux-toolkit-with-redux-orm
 
-### yarn
+### git clone
+
+### npm install
 
 ### npx react-native run-android

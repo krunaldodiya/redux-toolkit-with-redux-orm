@@ -16,6 +16,7 @@
     "@react-navigation/native": "^5.0.9",
     "@react-navigation/stack": "^5.1.1",
     "@reduxjs/toolkit": "^1.2.5",
+    "axios": "^0.19.2",
     "normalizr": "^3.6.0",
     "react": "16.9.0",
     "react-native": "0.61.5",

@@ -3,7 +3,7 @@ import {Provider} from 'react-redux';
 import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
 import Home from './src/screens/Home';
-import store from './src/store';
+import {store} from './src/store';
 
 const App = () => {
   const persistor = persistStore(store);

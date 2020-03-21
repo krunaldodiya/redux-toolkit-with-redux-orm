@@ -1,15 +1,37 @@
 import Model, {attr} from 'redux-orm';
+import {ADD_TODO, REMOVE_TODO, TOGGLE_TODO} from '../store/types/todo';
 
 export default class Todo extends Model {
-  toString() {
-    return `Todo: ${this.name}`;
+  static modelName = 'Todo';
+
+  static fields = {
+    id: attr(),
+    name: attr(),
+    status: attr(),
+  };
+
+  static reducer(action, Todo, session) {
+    const {type, payload} = action;
+
+    switch (type) {
+      case ADD_TODO: {
+        Todo.create({name: action.payload.name});
+        break;
+      }
+
+      case REMOVE_TODO: {
+        Todo.withId(payload.id).delete();
+        break;
+      }
+
+      case TOGGLE_TODO: {
+        Todo.withId(payload.id).update({status: !payload.status});
+        break;
+      }
+
+      default: {
+        return session.state;
+      }
+    }
   }
 }
-
-Todo.modelName = 'Todo';
-
-Todo.fields = {
-  id: attr(),
-  name: attr(),
-  status: attr(),
-};

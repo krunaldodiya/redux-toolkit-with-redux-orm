@@ -1,26 +1,17 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import {
-  combineReducers,
-  configureStore,
-  getDefaultMiddleware,
-} from '@reduxjs/toolkit';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
+import {composeWithDevTools} from 'redux-devtools-extension';
 import {persistReducer} from 'redux-persist';
 import {createBlacklistFilter} from 'redux-persist-transform-filter';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
-import todoSlice from './todo';
-import {createReducer} from 'redux-orm';
-import {orm} from '../orm';
+import ReduxThunk from 'redux-thunk';
+import {ormReducer} from '../orm';
 
-const ormReducer = createReducer(orm, function(session, action) {
-  console.log(session, action);
-});
-
-const reducers = combineReducers({
+const appReducer = combineReducers({
   orm: ormReducer,
-  todos: todoSlice.reducer,
 });
 
-const todosBlacklist = createBlacklistFilter('todos', ['loading']);
+const todosBlacklist = createBlacklistFilter('users', ['loading']);
 
 const persistConfig = {
   key: 'root',
@@ -29,10 +20,15 @@ const persistConfig = {
   stateReconciler: autoMergeLevel2,
 };
 
-const persistedReducer = persistReducer(persistConfig, reducers);
+const persistedReducer = persistReducer(persistConfig, appReducer);
 
-export default configureStore({
-  reducer: persistedReducer,
-  middleware: [...getDefaultMiddleware({serializableCheck: false})],
-  devTools: true,
-});
+const middlewares = [ReduxThunk];
+
+const composeEnhancers = composeWithDevTools({});
+
+const store = createStore(
+  persistedReducer,
+  composeEnhancers(applyMiddleware(...middlewares)),
+);
+
+export {store};

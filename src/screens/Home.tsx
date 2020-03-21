@@ -1,16 +1,16 @@
-import React, {useState} from 'react';
+import React, {memo, useState} from 'react';
 import {
   Button,
-  TextInput,
-  View,
   FlatList,
   Text,
+  TextInput,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {v4} from 'uuid';
-import todoSlice from '../store/todo';
-import {session} from '../orm';
+import {createTodoSelector} from '../selectors/todo';
+import {addTodo, toggleTodo, removeTodo} from '../store/types/todo';
 
 const Home = (props: any) => {
   const dispatch = useDispatch();
@@ -18,9 +18,7 @@ const Home = (props: any) => {
 
   const {todos} = useSelector(state => {
     return {
-      todos: session.Todo.orderBy('id', 'desc')
-        .all()
-        .toModelArray(),
+      todos: createTodoSelector(state),
     };
   });
 
@@ -36,7 +34,7 @@ const Home = (props: any) => {
         <Button
           title="add"
           onPress={() => {
-            dispatch(todoSlice.actions.add({id: v4(), name, status: false}));
+            dispatch(addTodo({id: v4(), name, status: false}));
             setName('');
           }}
         />
@@ -73,7 +71,7 @@ const Home = (props: any) => {
                   <TouchableOpacity
                     style={{marginHorizontal: 10}}
                     onPress={() => {
-                      dispatch(todoSlice.actions.toggle(item));
+                      dispatch(toggleTodo(item));
                     }}>
                     <Text
                       style={{
@@ -88,7 +86,7 @@ const Home = (props: any) => {
                   <TouchableOpacity
                     style={{marginHorizontal: 10}}
                     onPress={() => {
-                      dispatch(todoSlice.actions.remove(item));
+                      dispatch(removeTodo(item));
                     }}>
                     <Text
                       style={{
@@ -109,4 +107,4 @@ const Home = (props: any) => {
   );
 };
 
-export default Home;
+export default memo(Home);

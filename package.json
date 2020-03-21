@@ -15,9 +15,7 @@
     "@react-native-community/masked-view": "^0.1.7",
     "@react-navigation/native": "^5.0.9",
     "@react-navigation/stack": "^5.1.1",
-    "@reduxjs/toolkit": "^1.2.5",
     "axios": "^0.19.2",
-    "normalizr": "^3.6.0",
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-gesture-handler": "^1.6.0",
@@ -25,9 +23,11 @@
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.3.0",
     "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
     "redux-orm": "^0.16.1",
     "redux-persist": "^6.0.0",
     "redux-persist-transform-filter": "^0.0.20",
+    "redux-thunk": "^2.3.0",
     "uuid": "^7.0.2"
   },
   "devDependencies": {
@@ -38,6 +38,7 @@
     "@types/react-native": "^0.60.25",
     "@types/react-redux": "^7.1.7",
     "@types/react-test-renderer": "16.9.1",
+    "@types/redux": "^3.6.0",
     "@types/redux-orm": "^0.13.6",
     "@types/uuid": "^7.0.0",
     "@typescript-eslint/eslint-plugin": "^2.12.0",
@@ -47,6 +48,7 @@
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.56.0",
     "react-test-renderer": "16.9.0",
+    "redux-devtools-extension": "^2.13.8",
     "typescript": "^3.7.3"
   },
   "jest": {

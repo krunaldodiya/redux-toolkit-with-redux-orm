@@ -1,4 +1,4 @@
-import {ORM} from 'redux-orm';
+import {createReducer, ORM} from 'redux-orm';
 import Todo from '../models/todo';
 
 const orm = new ORM({
@@ -7,6 +7,6 @@ const orm = new ORM({
 
 orm.register(Todo);
 
-const session = orm.session();
+const ormReducer = createReducer(orm);
 
-export {orm, session};
+export {orm, ormReducer};

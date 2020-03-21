@@ -7,6 +7,6 @@ const orm = new ORM({
 
 orm.register(Todo);
 
-const ormReducer = createReducer(orm);
+export {orm};
 
-export {orm, ormReducer};
+export default createReducer(orm);

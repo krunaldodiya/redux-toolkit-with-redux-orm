@@ -9,21 +9,22 @@ const initialState = {
 
 export default (state = initialState, action: any) => {
   const {type, payload} = action;
-  const {session} = payload;
-  const {Todo} = session;
 
   switch (type) {
     case ADD_TODO: {
+      const {Todo} = payload.session;
       Todo.create({id: payload.id, name: payload.name});
       break;
     }
 
     case REMOVE_TODO: {
+      const {Todo} = payload.session;
       Todo.withId(payload.id).delete();
       break;
     }
 
     case TOGGLE_TODO: {
+      const {Todo} = payload.session;
       Todo.withId(payload.id).update({status: !payload.status});
       break;
     }

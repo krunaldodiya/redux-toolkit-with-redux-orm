@@ -9,16 +9,19 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {v4} from 'uuid';
-import {addTodo, removeTodo, toggleTodo} from '../models/todo';
-import {createTodoSelector} from '../selectors/todo';
+import {addTodo, removeTodo, toggleTodo} from '../store/reducers/todo';
+import {orm} from '../orm';
+import {store} from '../store';
 
 const Home = (props: any) => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
 
+  const session = orm.mutableSession(store.getState().orm);
+
   const {todos} = useSelector(state => {
     return {
-      todos: createTodoSelector(state),
+      todos: session.Todo.all().toRefArray(),
     };
   });
 
@@ -34,7 +37,7 @@ const Home = (props: any) => {
         <Button
           title="add"
           onPress={() => {
-            dispatch(addTodo({id: v4(), name, status: false}));
+            dispatch(addTodo({id: v4(), name, status: false}, session));
             setName('');
           }}
         />
@@ -71,7 +74,7 @@ const Home = (props: any) => {
                   <TouchableOpacity
                     style={{marginHorizontal: 10}}
                     onPress={() => {
-                      dispatch(toggleTodo(item));
+                      dispatch(toggleTodo(item, session));
                     }}>
                     <Text
                       style={{
@@ -86,7 +89,7 @@ const Home = (props: any) => {
                   <TouchableOpacity
                     style={{marginHorizontal: 10}}
                     onPress={() => {
-                      dispatch(removeTodo(item));
+                      dispatch(removeTodo(item, session));
                     }}>
                     <Text
                       style={{

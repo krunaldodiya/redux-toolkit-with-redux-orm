@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {addTodo} from '../store/types/todo';
+import {addTodo} from '../models/todo';
 
 export function loadCatgories() {
   return function(dispatch: any) {

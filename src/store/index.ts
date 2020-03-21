@@ -9,6 +9,7 @@ const composeEnhancers = composeWithDevTools({});
 
 const store = createStore(
   rootPersistReducer,
+  {},
   composeEnhancers(applyMiddleware(...middlewares)),
 );
 

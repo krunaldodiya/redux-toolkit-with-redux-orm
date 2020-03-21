@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {lazy, Suspense, memo} from 'react';
 import {Provider} from 'react-redux';
 import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
-import Home from './src/screens/Home';
 import {store} from './src/store';
+
+const Home = lazy(() => import('./src/screens/Home'));
 
 const App = () => {
   const persistor = persistStore(store);
@@ -11,10 +12,12 @@ const App = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <Home />
+        <Suspense fallback={null}>
+          <Home />
+        </Suspense>
       </PersistGate>
     </Provider>
   );
 };
 
-export default App;
+export default memo(App);

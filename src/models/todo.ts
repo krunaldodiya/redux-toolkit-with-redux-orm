@@ -1,5 +1,8 @@
 import Model, {attr} from 'redux-orm';
-import {ADD_TODO, REMOVE_TODO, TOGGLE_TODO} from '../store/types/todo';
+
+export const ADD_TODO = 'ADD_TODO';
+export const REMOVE_TODO = 'REMOVE_TODO';
+export const TOGGLE_TODO = 'TOGGLE_TODO';
 
 export default class Todo extends Model {
   static modelName = 'Todo';
@@ -35,3 +38,18 @@ export default class Todo extends Model {
     }
   }
 }
+
+export const addTodo = (payload: any) => ({
+  type: ADD_TODO,
+  payload,
+});
+
+export const removeTodo = (payload: any) => ({
+  type: REMOVE_TODO,
+  payload,
+});
+
+export const toggleTodo = (payload: any) => ({
+  type: TOGGLE_TODO,
+  payload,
+});

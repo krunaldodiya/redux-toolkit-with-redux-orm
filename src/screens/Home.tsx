@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {v4} from 'uuid';
+import {addTodo, removeTodo, toggleTodo} from '../models/todo';
 import {createTodoSelector} from '../selectors/todo';
-import {addTodo, toggleTodo, removeTodo} from '../store/types/todo';
 
 const Home = (props: any) => {
   const dispatch = useDispatch();

@@ -15,7 +15,7 @@ export default class Todo extends Model {
 
     switch (type) {
       case ADD_TODO: {
-        Todo.create({name: action.payload.name});
+        Todo.create({id: payload.id, name: payload.name});
         break;
       }
 
